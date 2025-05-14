@@ -67,7 +67,7 @@ const Schedule = () => {
           transition={{ duration: 0.5 }}
           className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700/50"
         >
-          <Stepper onFinalStepCompleted={handleSubmit} style={{ minHeight: '400px' }}>
+          <Stepper onFinalStepCompleted={handleSubmit} style={{ minHeight: '600px' }}>
             <Step>
               <div className="space-y-6">
                 <h2 className="text-2xl font-semibold mb-4">Escolha o Serviço</h2>
@@ -104,21 +104,20 @@ const Schedule = () => {
                     const day = date.getDay();
                     return day === 0 || day === 6;
                   }}
-                  locale={{
-                    locale: "pt-BR",
-                    months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
-                    days: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
-                    navigationLabel: ({ month, year }) => `${month} ${year}`,
-                    today: "Hoje"
+                  formatters={{
+                    formatWeekdayName: () => "",
+                    formatMonthCaption: ({ month, year }) => `${new Date(year, month).toLocaleString('pt-BR', { month: 'long' })} ${year}`,
                   }}
-                  styles={{
-                    head_cell: "font-medium text-sm",
-                    cell: "h-12 w-12 text-center text-sm relative p-0 focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent",
-                    day: "h-12 w-12 p-0 font-normal",
+                  classNames={{
+                    head_cell: "font-medium text-sm p-2",
+                    cell: "h-12 w-12 text-center text-sm p-0 relative focus-within:relative focus-within:z-20 [&:has([aria-selected])]:bg-accent",
+                    day: "h-12 w-12 p-0 font-normal aria-selected:opacity-100",
                     nav_button_previous: "absolute left-1",
                     nav_button_next: "absolute right-1",
                     caption: "flex justify-center pt-1 relative items-center mb-4"
                   }}
+                  ISOWeek
+                  weekStartsOn={1}
                 />
 
                 <div className="grid grid-cols-3 gap-4 mt-6">
