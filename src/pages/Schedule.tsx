@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -13,9 +12,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
+import Stepper, { Step } from './Stepper';
+import { cn } from "@/lib/utils";
 
 const Schedule = () => {
   const [date, setDate] = useState<Date | undefined>(undefined);
+  const [selectedTime, setSelectedTime] = useState<string>("");
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -32,15 +34,15 @@ const Schedule = () => {
     { value: "integration", label: "Integrações de Sistema" },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log({ ...formData, date });
+  const handleSubmit = () => {
+    // Future N8N integration point
+    console.log({ ...formData, date, selectedTime });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-convrt-dark-blue dark:to-convrt-dark-blue/95">
       <Navbar />
-      <div className="container mx-auto px-4 py-24 max-w-7xl">
+      <div className="container mx-auto px-4 py-24 max-w-4xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -59,131 +61,128 @@ const Schedule = () => {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
-          >
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">Selecione uma Data</h3>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-lg border border-gray-100 dark:border-gray-700/50"
+        >
+          <Stepper onFinalStepCompleted={handleSubmit}>
+            <Step>
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold mb-4">Escolha o Serviço</h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {services.map((service) => (
+                    <motion.button
+                      key={service.value}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                      onClick={() => setFormData({ ...formData, service: service.value })}
+                      className={cn(
+                        "p-4 rounded-xl border-2 text-left transition-colors",
+                        formData.service === service.value
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 hover:border-blue-200 dark:border-gray-700 dark:hover:border-blue-400"
+                      )}
+                    >
+                      <h3 className="font-medium">{service.label}</h3>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+            </Step>
+
+            <Step>
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold mb-4">Selecione a Data</h2>
                 <Calendar
                   mode="single"
                   selected={date}
                   onSelect={setDate}
-                  className="rounded-xl border-2 border-gray-100 dark:border-gray-700 p-4 bg-white dark:bg-gray-800"
+                  className="rounded-xl border-2 border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800"
                 />
-              </div>
 
-              <div className="grid grid-cols-3 gap-4 mt-6">
-                {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"].map((time) => (
-                  <motion.button
-                    key={time}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="py-2 px-4 rounded-lg border-2 border-gray-100 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-200"
-                  >
-                    {time}
-                  </motion.button>
-                ))}
+                <div className="grid grid-cols-3 gap-4 mt-6">
+                  {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"].map((time) => (
+                    <motion.button
+                      key={time}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setSelectedTime(time)}
+                      className={cn(
+                        "py-2 px-4 rounded-lg border-2 transition-colors duration-200",
+                        selectedTime === time
+                          ? "border-blue-500 bg-blue-500/10 text-blue-500"
+                          : "border-gray-100 dark:border-gray-700 hover:border-blue-500 dark:hover:border-blue-400"
+                      )}
+                    >
+                      {time}
+                    </motion.button>
+                  ))}
+                </div>
               </div>
-            </div>
-          </motion.div>
+            </Step>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="bg-white dark:bg-gray-800/50 rounded-2xl p-8 shadow-xl border border-gray-100 dark:border-gray-700/50 backdrop-blur-sm"
-          >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Serviço de Interesse
-                </label>
-                <Select
-                  value={formData.service}
-                  onValueChange={(value) => setFormData({ ...formData, service: value })}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione um serviço" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {services.map((service) => (
-                      <SelectItem key={service.value} value={service.value}>
-                        {service.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+            <Step>
+              <div className="space-y-6">
+                <h2 className="text-2xl font-semibold mb-4">Seus Dados</h2>
+                <div className="grid gap-6">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                      Nome Completo
+                    </label>
+                    <Input
+                      type="text"
+                      required
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      className="border-2 border-gray-100 dark:border-gray-700 bg-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                      Email Corporativo
+                    </label>
+                    <Input
+                      type="email"
+                      required
+                      value={formData.email}
+                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      className="border-2 border-gray-100 dark:border-gray-700 bg-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                      Empresa
+                    </label>
+                    <Input
+                      type="text"
+                      required
+                      value={formData.company}
+                      onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                      className="border-2 border-gray-100 dark:border-gray-700 bg-transparent"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
+                      Telefone
+                    </label>
+                    <Input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      className="border-2 border-gray-100 dark:border-gray-700 bg-transparent"
+                    />
+                  </div>
+                </div>
               </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Nome Completo
-                </label>
-                <Input
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="border-2"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Email Corporativo
-                </label>
-                <Input
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="border-2"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Empresa
-                </label>
-                <Input
-                  type="text"
-                  required
-                  value={formData.company}
-                  onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                  className="border-2"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">
-                  Telefone
-                </label>
-                <Input
-                  type="tel"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="border-2"
-                />
-              </div>
-
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 text-white py-3 px-6 rounded-xl font-medium flex items-center justify-center space-x-2 hover:opacity-90 transition-opacity"
-                type="submit"
-              >
-                <span>Agendar Reunião</span>
-                <ChevronRight className="w-4 h-4" />
-              </motion.button>
-            </form>
-          </motion.div>
-        </div>
+            </Step>
+          </Stepper>
+        </motion.div>
       </div>
     </div>
   );
