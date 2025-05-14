@@ -88,7 +88,7 @@ const Schedule = () => {
 
   return (
     <div className="min-h-screen bg-white dark:bg-convrt-dark-blue">
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
+      <div className="container mx-auto px-4 py-8 md:py-16 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -99,7 +99,7 @@ const Schedule = () => {
             <Sparkles className="w-4 h-4 mr-2" />
             <span className="text-sm font-medium">Agende uma Demonstração</span>
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 gradient-text">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4 gradient-text">
             Transforme Seu Negócio com Automação Inteligente
           </h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -116,7 +116,7 @@ const Schedule = () => {
           className="max-w-4xl mx-auto"
         >
           {currentStep === 0 && (
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
               {services.map((service) => (
                 <Card
                   key={service.id}
@@ -168,7 +168,7 @@ const Schedule = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.4, delay: 0.1 }}
-                  className="grid grid-cols-2 md:grid-cols-3 gap-6"
+                  className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-6"
                 >
                   {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"].map((time) => (
                     <Button
@@ -272,7 +272,7 @@ const Schedule = () => {
             </form>
           )}
 
-          <div className="flex justify-between mt-8">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mt-8">
             <Button
               variant="outline"
               onClick={handleBack}

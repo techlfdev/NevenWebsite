@@ -17,12 +17,12 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("w-full p-4 bg-white rounded-xl", className)}
+      className={cn("w-full p-2 md:p-4 bg-white rounded-xl", className)}
       classNames={{
         months: "flex w-full",
         month: "w-full space-y-4",
         caption: "flex justify-center relative items-center px-8 pb-4",
-        caption_label: "text-lg font-semibold text-[#0F2D52]",
+        caption_label: "text-base md:text-lg font-semibold text-[#0F2D52]",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
           buttonVariants({ variant: "outline" }),
@@ -42,7 +42,7 @@ function Calendar({
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-10 w-full p-0 font-normal aria-selected:opacity-100 hover:bg-blue-50 focus:bg-blue-50 transition-all duration-200"
+          "h-8 md:h-10 w-full p-0 text-sm md:text-base font-normal aria-selected:opacity-100 hover:bg-blue-50 focus:bg-blue-50 transition-all duration-200"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
