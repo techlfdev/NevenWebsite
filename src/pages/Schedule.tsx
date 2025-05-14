@@ -137,13 +137,25 @@ const Schedule = () => {
           {currentStep === 1 && (
             <div className="space-y-8">
               <TooltipProvider>
-                <Calendar
-                  mode="single"
-                  selected={date}
-                  onSelect={setDate}
-                  className="rounded-md border mx-auto"
-                  disabled={(date) => date < new Date() || date.getDay() === 0 || date.getDay() === 6}
-                />
+                <div className="p-4 bg-white rounded-xl shadow-lg border border-slate-200">
+                  <Calendar
+                    mode="single"
+                    selected={date}
+                    onSelect={setDate}
+                    className="mx-auto animate-in zoom-in-95 duration-300"
+                    disabled={(date) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      return (
+                        date < today ||
+                        date.getDay() === 0 ||
+                        date.getDay() === 6
+                      );
+                    }}
+                    fromDate={new Date()}
+                    toDate={new Date(new Date().setMonth(new Date().getMonth() + 2))}
+                  />
+                </div>
               </TooltipProvider>
 
               {date && (
