@@ -17,11 +17,11 @@ function Calendar({
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
-      className={cn("w-full p-8 bg-white rounded-xl shadow-md", className)}
+      className={cn("w-full p-4 bg-white rounded-xl", className)}
       classNames={{
-        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-8 sm:space-y-0 justify-center",
-        month: "space-y-6 w-full flex-1 max-w-[800px]",
-        caption: "flex justify-center pt-1 relative items-center px-12 pb-6",
+        months: "flex w-full",
+        month: "w-full space-y-4",
+        caption: "flex justify-center relative items-center px-8 pb-4",
         caption_label: "text-lg font-semibold text-[#0F2D52]",
         nav: "space-x-1 flex items-center",
         nav_button: cn(
@@ -32,17 +32,17 @@ function Calendar({
         nav_button_next: "absolute right-1",
         table: "w-full border-collapse space-y-2",
         head_row: "flex w-full",
-        head_cell: "text-[#0F2D52] rounded-md w-12 sm:w-16 font-medium text-[0.9rem] uppercase tracking-wider",
-        row: "flex w-full mt-2",
+        head_cell: "text-[#0F2D52] rounded-md w-full font-medium text-[0.8rem] uppercase tracking-wider text-center",
+        row: "flex w-full mt-1",
         cell: cn(
-          "relative p-0 text-center text-sm focus-within:relative focus-within:z-20 transition-colors duration-200",
+          "flex-1 relative p-0 text-center text-sm focus-within:relative focus-within:z-20 transition-colors duration-200",
           props.mode === "range"
             ? "[&:has(>.day-range-end)]:rounded-r-md [&:has(>.day-range-start)]:rounded-l-md first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md"
             : "[&:has([aria-selected])]:rounded-md"
         ),
         day: cn(
           buttonVariants({ variant: "ghost" }),
-          "h-12 sm:h-16 w-12 sm:w-16 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-50 focus:bg-blue-50 transition-all duration-200"
+          "h-10 w-full p-0 font-normal aria-selected:opacity-100 hover:bg-blue-50 focus:bg-blue-50 transition-all duration-200"
         ),
         day_range_start: "day-range-start",
         day_range_end: "day-range-end",
