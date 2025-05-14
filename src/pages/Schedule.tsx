@@ -141,13 +141,13 @@ const Schedule = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
-                  className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden"
+                  className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden w-full flex justify-center"
                 >
                   <Calendar
                     mode="single"
                     selected={date}
                     onSelect={setDate}
-                    className="mx-auto animate-in zoom-in-95 duration-300"
+                    className="w-full max-w-[800px] animate-in zoom-in-95 duration-300"
                     disabled={(date) => {
                       const today = new Date();
                       today.setHours(0, 0, 0, 0);
