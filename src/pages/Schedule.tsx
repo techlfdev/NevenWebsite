@@ -135,9 +135,14 @@ const Schedule = () => {
           )}
 
           {currentStep === 1 && (
-            <div className="space-y-8">
+            <div className="space-y-12">
               <TooltipProvider>
-                <div className="p-4 bg-white rounded-xl shadow-lg border border-slate-200">
+                <motion.div 
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                  className="bg-white rounded-2xl shadow-xl border border-slate-100 overflow-hidden"
+                >
                   <Calendar
                     mode="single"
                     selected={date}
@@ -155,26 +160,32 @@ const Schedule = () => {
                     fromDate={new Date()}
                     toDate={new Date(new Date().setMonth(new Date().getMonth() + 2))}
                   />
-                </div>
+                </motion.div>
               </TooltipProvider>
 
               {date && (
                 <motion.div
-                  initial={{ opacity: 0, y: 10 }}
+                  initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="grid grid-cols-3 gap-4"
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="grid grid-cols-2 md:grid-cols-3 gap-6"
                 >
                   {["09:00", "10:00", "11:00", "14:00", "15:00", "16:00"].map((time) => (
                     <Button
                       key={time}
                       variant="outline"
                       className={cn(
-                        "justify-start",
-                        selectedTime === time && "border-blue-500 ring-2 ring-blue-500/20"
+                        "h-20 justify-center items-center text-lg transition-all duration-200 hover:bg-blue-50 hover:border-[#0F2D52]",
+                        selectedTime === time 
+                          ? "bg-[#10B981]/10 border-[#10B981] text-[#10B981] hover:bg-[#10B981]/10" 
+                          : "border-slate-200"
                       )}
                       onClick={() => setSelectedTime(time)}
                     >
-                      <Clock className="mr-2 h-4 w-4" />
+                      <Clock className={cn(
+                        "mr-3 h-5 w-5 transition-colors",
+                        selectedTime === time ? "text-[#10B981]" : "text-slate-500"
+                      )} />
                       {time}
                     </Button>
                   ))}
