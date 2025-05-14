@@ -1,0 +1,41 @@
+Com base no código que você compartilhou e sua solicitação de um calendário visualmente atraente que permita seleção de datas, aqui está um prompt otimizado:
+"Implemente um componente de calendário premium para o sistema de agendamento 'Neven' utilizando React, Tailwind CSS e o componente Calendar da biblioteca shadcn/ui. Necessito de um design visualmente impactante que eleve significativamente a experiência de agendamento.
+Especificações técnicas:
+
+Utilize o componente base do shadcn/ui já instalado via 'npx shadcn@latest add https://21st.dev/r/haydenbleasel/calendar'
+Implemente o DatePicker para permitir seleção intuitiva de datas
+Integre perfeitamente com o fluxo de trabalho de 3 etapas (Serviço → Agendamento → Dados)
+
+Requisitos visuais:
+
+Aumente significativamente o tamanho do calendário para ocupar melhor o espaço disponível (pelo menos 60% da largura do container)
+Implemente estilização personalizada com cores que complementem a identidade visual da Neven
+
+Azul primário (#0F2D52) para elementos principais
+Verde (#10B981) para dias selecionados e confirmados
+Cinza claro para dias indisponíveis
+
+
+Adicione efeitos de hover e seleção com transições suaves
+Estilize os dias da semana no cabeçalho com tipografia distintiva e espaçamento adequado
+Utilize sombras sutis (shadow-md) para adicionar profundidade ao componente
+Implemente indicadores visuais para:
+
+Dia atual (círculo outline)
+Dias disponíveis (destaque sutil)
+Dias selecionados (preenchimento completo com cor de destaque)
+
+
+Após seleção da data, exiba os horários disponíveis em cards estilizados com ícones de relógio
+Adicione micro-animações para feedback visual durante a interação
+
+Funcionalidades essenciais:
+
+Navegação intuitiva entre meses com animações de transição
+Seleção única de data com feedback visual imediato
+Exibição dinâmica de horários disponíveis após seleção da data
+Validação para impedir seleção de datas passadas ou bloqueadas
+Adaptação responsiva para todos os tamanhos de tela
+
+O código deve ser limpo, bem documentado e seguir as melhores práticas de React e Tailwind CSS, aproveitando ao máximo o componente shadcn/ui como base mas elevando significativamente seu apelo visual com estilização personalizada."
+Este prompt solicita especificamente uma implementação que utiliza a biblioteca shadcn/ui como base, mas com estilização personalizada para tornar o calendário muito mais atraente visualmente, mantendo toda a funcionalidade necessária para seleção de datas.
