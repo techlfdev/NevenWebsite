@@ -12,7 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
-import Stepper, { Step } from './Stepper';
+import { Stepper, Step } from '@/components/ui/stepper';
 import { cn } from "@/lib/utils";
 
 const Schedule = () => {
