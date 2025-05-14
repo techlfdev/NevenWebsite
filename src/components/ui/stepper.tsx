@@ -12,7 +12,7 @@ interface StepperProps {
 
 const Stepper = ({ steps, currentStep, className }: StepperProps) => {
   return (
-    <div className={cn("flex justify-between items-center w-full max-w-3xl mx-auto px-4", className)}>
+    <div className={cn("flex justify-center items-center w-full max-w-xl mx-auto px-4 mb-8", className)}>
       {steps.map((step, index) => {
         const isCompleted = currentStep > index;
         const isCurrent = currentStep === index;
